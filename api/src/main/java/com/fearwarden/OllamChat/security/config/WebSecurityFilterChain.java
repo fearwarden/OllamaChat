@@ -1,5 +1,6 @@
 package com.fearwarden.OllamChat.security.config;
 
+import com.fearwarden.OllamChat.enums.Role;
 import com.fearwarden.OllamChat.security.filters.AuthenticationFilterImpl;
 import lombok.Data;
 import org.springframework.context.annotation.Bean;
@@ -30,8 +31,9 @@ public class WebSecurityFilterChain {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request ->
-                        request.requestMatchers("api/v1/auth/**")
+                        request.requestMatchers("/api/v1/auth/**")
                                 .permitAll()
+                                .requestMatchers("/api/v1/chat/**").hasAnyRole(Role.USER.name(), Role.ADMIN.name())
                                 .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider)

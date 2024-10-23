@@ -10,10 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @Setter
@@ -50,6 +47,10 @@ public class User implements UserDetails {
     @Column(name = "role", nullable = false, columnDefinition = "VARCHAR(10) default 'USER'")
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private Role role = Role.USER;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private Set<Chat> chats = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
