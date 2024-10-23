@@ -17,7 +17,7 @@ public class ChatController {
 
     @PostMapping("/message")
     public ResponseEntity<String> message(@RequestBody @Validated MessageDto body, @AuthenticationPrincipal UserDetails details) {
-        String llmResponse = chatService.message(body.getPrompt(), details);
+        String llmResponse = chatService.message(body, details);
         return ResponseEntity.ok(llmResponse);
     }
 }

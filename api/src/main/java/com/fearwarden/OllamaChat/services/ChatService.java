@@ -1,5 +1,6 @@
 package com.fearwarden.OllamaChat.services;
 
+import com.fearwarden.OllamaChat.dto.request.MessageDto;
 import com.fearwarden.OllamaChat.enums.MessageType;
 import com.fearwarden.OllamaChat.exceptions.throwables.UserNotFoundException;
 import com.fearwarden.OllamaChat.models.Chat;
@@ -30,21 +31,32 @@ public class ChatService {
     }
 
     @Transactional
-    public String message(String prompt, UserDetails details) {
+    public String message(MessageDto body, UserDetails details) {
         User user = userRepository.findByEmail(details.getUsername()).orElseThrow(UserNotFoundException::new);
-        Chat chat = new Chat();
-        chat.setUser(user);
+        Chat chat = handleChat(body.getChatId(), user);
+        chatRepository.save(chat);
 
-        Message newMessage = createMessage(prompt, MessageType.PROMPT, chat.getId());
+        Message newMessage = createMessage(body.getPrompt(), MessageType.PROMPT, chat.getId());
         messageRepository.save(newMessage);
 
         String response = chatClient.prompt()
-                .user(prompt)
+                .user(body.getPrompt())
                 .call()
                 .content();
         Message newResponse = createMessage(response, MessageType.RESPONSE, chat.getId());
         messageRepository.save(newResponse);
         return response;
+    }
+
+    private Chat handleChat(String chatId, User user) {
+        Chat chat;
+        if (chatId == null) {
+            chat = new Chat();
+            chat.setUser(user);
+        } else {
+            chat = chatRepository.findById(UUID.fromString(chatId)).orElseThrow(null);
+        }
+        return chat;
     }
 
     private Message createMessage(String message, MessageType type, UUID chatId) {
