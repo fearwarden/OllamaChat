@@ -10,6 +10,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -22,6 +23,8 @@ public class Message {
     private UUID id;
     @Field(type = FieldType.Text)
     private String content;
+    @Field(type = FieldType.Date)
+    private LocalDateTime createdAt = LocalDateTime.now();
     private UUID chatId;
     private MessageType type;
 }
