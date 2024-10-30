@@ -13,7 +13,7 @@ import java.util.UUID;
 public class MessageService {
     private final MessageRepository messageRepository;
 
-    public Message createMessage(String content, MessageType type, UUID chatId) {
+    private Message createMessage(String content, MessageType type, UUID chatId) {
         Message message = new Message();
         message.setId(UUID.randomUUID());
         message.setContent(content);

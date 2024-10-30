@@ -23,17 +23,17 @@ public class ChatService {
     @Transactional
     public String message(MessageDto body, UserDetails details) {
         User user = userService.findUserEntityByEmail(details.getUsername());
-        Chat chat = createChat(body.getChatId(), user);
+        Chat chat = getOrCreateChat(body.getChatId(), user);
         chatRepository.save(chat);
+        String response = aiClientService.generateResponse(body.getPrompt());
         // Save user prompt
         messageService.saveMessage(body.getPrompt(), MessageType.PROMPT, chat.getId());
-        String response = aiClientService.getResponse(body.getPrompt());
         // Save AI response
         messageService.saveMessage(response, MessageType.RESPONSE, chat.getId());
         return response;
     }
 
-    private Chat createChat(String chatId, User user) {
+    private Chat getOrCreateChat(String chatId, User user) {
         Chat chat;
         if (chatId == null) {
             chat = new Chat();

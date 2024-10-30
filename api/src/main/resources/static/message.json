@@ -1,0 +1,24 @@
+{
+  "mappings": {
+    "properties": {
+      "embedding": {
+        "type": "dense_vector",
+        "dims": 4096,
+        "index": true,
+        "similarity": "cosine"
+      },
+      "text": {
+        "type": "text"
+      },
+      "metadata": {
+        "type": "object"
+      }
+    }
+  },
+  "settings": {
+    "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 1
+    }
+  }
+}

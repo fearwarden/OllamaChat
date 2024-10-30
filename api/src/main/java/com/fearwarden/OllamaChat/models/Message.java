@@ -9,6 +9,7 @@ import lombok.ToString;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.Mapping;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @Setter
 @ToString
 @Document(indexName = Indices.MESSAGE_INDEX)
+@Mapping(mappingPath = "static/message.json")
 public class Message {
     @Id
     @Field(type = FieldType.Keyword)
