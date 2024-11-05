@@ -1,14 +1,13 @@
-import SidebarLayout from "@/components/layouts/sidebar-layout";
+import { useNavigate } from "react-router-dom";
+import { paths } from "../config/paths";
+import { useEffect } from "react";
 
 function LandingRoute() {
-  return (
-    <div className="flex gap-96">
-      <div>
-        <SidebarLayout children />
-      </div>
-      <div>Boris</div>
-    </div>
-  );
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate(paths.app.root.path + paths.app.chats.path);
+  }, []);
+  return <div>Landing page</div>;
 }
 
 export default LandingRoute;
