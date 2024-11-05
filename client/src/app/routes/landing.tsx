@@ -1,7 +1,6 @@
-import "./App.css";
-import SidebarLayout from "./components/layouts/sidebar-layout";
+import SidebarLayout from "@/components/layouts/sidebar-layout";
 
-function App() {
+function LandingRoute() {
   return (
     <div className="flex gap-96">
       <div>
@@ -12,4 +11,4 @@ function App() {
   );
 }
 
-export default App;
+export default LandingRoute;
