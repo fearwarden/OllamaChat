@@ -1,14 +1,16 @@
+import ContentLayout from "@/components/layouts/content-layout";
 import SidebarLayout from "@/components/layouts/sidebar-layout";
+import Chat from "@/features/chats/components/chat";
 
-function Chats() {
+export const ChatRoute = () => {
   return (
-    <div className="flex gap-96">
+    <ContentLayout>
       <div>
         <SidebarLayout children />
       </div>
-      <div>Boris</div>
-    </div>
+      <div>
+        <Chat />
+      </div>
+    </ContentLayout>
   );
-}
-
-export default Chats;
+};
