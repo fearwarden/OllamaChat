@@ -1,12 +1,11 @@
-import { QueryClient, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import LandingRoute from "./routes/landing";
 import { AppRoot, AppRootErrorBoundary } from "./routes/app/root";
 import { paths } from "./config/paths";
-import Chats from "./routes/app/chats";
 
-export const createAppRouter = (queryClient: QueryClient) =>
+export const createAppRouter = () =>
   createBrowserRouter([
     {
       path: paths.home.path,
@@ -19,7 +18,12 @@ export const createAppRouter = (queryClient: QueryClient) =>
       children: [
         {
           path: paths.app.chats.path,
-          element: <Chats />,
+          lazy: async () => {
+            const { ChatRoute } = await import("@/app/routes/app/chats");
+            return {
+              Component: ChatRoute,
+            };
+          },
         },
       ],
     },
@@ -28,7 +32,7 @@ export const createAppRouter = (queryClient: QueryClient) =>
 export const AppRouter = () => {
   const queryClient = useQueryClient();
 
-  const router = useMemo(() => createAppRouter(queryClient), [queryClient]);
+  const router = useMemo(() => createAppRouter(), [queryClient]);
 
   return <RouterProvider router={router} />;
 };
