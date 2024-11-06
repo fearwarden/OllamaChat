@@ -18,7 +18,7 @@ export const AuthLayout = ({ children, title, description }: LayoutProps) => {
     <div className="flex h-screen w-full items-center justify-center px-4">
       <Card className="mx-auto max-w-sm">
         <CardHeader>
-          <CardTitle className="text-2xl">{title}</CardTitle>
+          <CardTitle className="text-2xl text-left">{title}</CardTitle>
           <CardDescription>{description}</CardDescription>
         </CardHeader>
         <CardContent>{children}</CardContent>

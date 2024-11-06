@@ -1,8 +1,7 @@
 import { Role } from "@/lib/authorization";
-import { UUID } from "crypto";
 
 export type BaseEntity = {
-  id: UUID;
+  id: string;
 };
 
 export type Entity<T> = {

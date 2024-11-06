@@ -4,6 +4,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import LandingRoute from "./routes/landing";
 import { AppRoot, AppRootErrorBoundary } from "./routes/app/root";
 import { paths } from "./config/paths";
+import { LoginRoute } from "./routes/auth/login";
+import { ProtectedRoute } from "@/lib/auth";
 
 export const createAppRouter = () =>
   createBrowserRouter([
@@ -12,8 +14,16 @@ export const createAppRouter = () =>
       element: <LandingRoute />,
     },
     {
+      path: paths.auth.login.path,
+      element: <LoginRoute />,
+    },
+    {
       path: paths.app.root.path,
-      element: <AppRoot />,
+      element: (
+        <ProtectedRoute>
+          <AppRoot />
+        </ProtectedRoute>
+      ),
       ErrorBoundary: AppRootErrorBoundary,
       children: [
         {

@@ -5,12 +5,22 @@ import { api } from "./api-client";
 import { User } from "@/types/api";
 import { useNavigate } from "react-router-dom";
 import { paths } from "@/app/config/paths";
+import { AxiosError } from "axios";
+import { useEffect } from "react";
 
-// TODO: add types
-const getUser = async () => {
-  const response = await api.get("/users/me");
-
-  return response.data;
+const getUser = async (): Promise<User | null> => {
+  try {
+    const response = (await api.get("/users/me")) as User;
+    return response;
+  } catch (error) {
+    const err = error as AxiosError;
+    if (err.status === 403) {
+      return null;
+    } else {
+      // Handle other errors
+      throw error;
+    }
+  }
 };
 
 const logout = (): Promise<void> => {
@@ -23,6 +33,10 @@ export const LoginInputSchema = z.object({
   password: z.string().min(5, "Required"),
 });
 export type LoginInput = z.infer<typeof LoginInputSchema>;
+export const loginDefaultValues: LoginInput = {
+  email: "",
+  password: "",
+};
 const loginWithEmailAndPassword = (data: LoginInput): Promise<User> => {
   return api.post("/auth/login", data);
 };
@@ -34,7 +48,9 @@ const authConfig = {
     return response;
   },
   // TODO: implement register
-  registerFn: async () => {},
+  registerFn: async (): Promise<User> => {
+    return {} as User;
+  },
   logoutFn: logout,
 };
 
@@ -45,9 +61,11 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const user = useUser();
   const navigate = useNavigate();
 
-  if (!user.data) {
-    navigate(paths.auth.login.path);
-  }
+  useEffect(() => {
+    if (!user.data) {
+      navigate(paths.auth.login.path);
+    }
+  }, [user, user.data]);
 
   return children;
 };

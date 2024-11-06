@@ -12,7 +12,7 @@ export const LoginRoute = () => {
     >
       <LoginForm
         onSuccess={() => {
-          navigate(paths.app.chats.path);
+          navigate(paths.app.root.path + paths.app.chats.path);
         }}
       />
     </AuthLayout>
