@@ -10,7 +10,7 @@ function Chat() {
         <Input
           type="text"
           placeholder="Message Ollama"
-          className="rounded-full w-[48rem] h-14 px-6 text-md bg-primary-foreground"
+          className="rounded-full w-[48rem] h-14 px-6 text-md bg-primary-foreground focus-visible:ring-sidebar"
         />
         <CircleArrowUp className="absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-400" />
       </div>
