@@ -43,7 +43,7 @@ public class AuthService {
     public UserDto login(String email, String password) {
         User user = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new RuntimeException("Password did not match");
+            throw new PasswordMissMatch();
         }
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(

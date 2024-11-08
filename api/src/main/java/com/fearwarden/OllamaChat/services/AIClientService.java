@@ -28,4 +28,13 @@ public class AIClientService {
                 .call()
                 .content();
     }
+
+    public String generateChatTitle(String prompt) {
+        String titleSystemPrompt = "For a given prompt, generate the title of the chat.";
+        return chatClient.prompt()
+                .system(titleSystemPrompt)
+                .user(prompt).
+                call()
+                .content();
+    }
 }
