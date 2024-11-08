@@ -18,6 +18,7 @@ const getUser = async (): Promise<User | null> => {
       return null;
     } else {
       // Handle other errors
+      console.log(err.message);
       throw error;
     }
   }

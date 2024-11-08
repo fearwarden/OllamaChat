@@ -15,3 +15,8 @@ export type User = Entity<{
   email: string;
   role: Role;
 }>;
+
+export type Chat = Entity<{
+  title: string;
+  createdAt: string;
+}>;
