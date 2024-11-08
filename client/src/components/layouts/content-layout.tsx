@@ -5,7 +5,7 @@ type ContentLayoutProps = {
 };
 
 function ContentLayout({ children }: ContentLayoutProps) {
-  return <div className="flex gap-96 p-[2rem]">{children}</div>;
+  return <div>{children}</div>;
 }
 
 export default ContentLayout;

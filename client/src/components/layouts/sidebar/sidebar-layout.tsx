@@ -1,15 +1,16 @@
 import AppSidebar from "@/components/navigation/app-sidebar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import React from "react";
+import { SidebarHeader } from "./components/header";
 
 function SidebarLayout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main>
-        <SidebarTrigger />
+      <SidebarInset>
+        <SidebarHeader />
         {children}
-      </main>
+      </SidebarInset>
     </SidebarProvider>
   );
 }
