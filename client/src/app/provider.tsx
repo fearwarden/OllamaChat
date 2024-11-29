@@ -28,7 +28,7 @@ function AppProvider({ children }: AppProviderProps) {
         </div>
       }
     >
-      <ErrorBoundary FallbackComponent={MainErrorFallback}>
+      <ErrorBoundary FallbackComponent={MainErrorFallback} fallback={undefined}>
         <QueryClientProvider client={queryClient}>
           <AuthLoader
             renderLoading={() => (

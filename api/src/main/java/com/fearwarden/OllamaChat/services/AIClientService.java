@@ -30,7 +30,7 @@ public class AIClientService {
     }
 
     public String generateChatTitle(String prompt) {
-        String titleSystemPrompt = "For a given prompt, generate the title of the chat.";
+        String titleSystemPrompt = "For the given prompt, generate the title of the chat.";
         return chatClient.prompt()
                 .system(titleSystemPrompt)
                 .user(prompt).

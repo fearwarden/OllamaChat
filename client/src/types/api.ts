@@ -20,3 +20,14 @@ export type Chat = Entity<{
   title: string;
   createdAt: string;
 }>;
+
+export enum MessageType {
+  PROMPT = "PROMPT",
+  RESPONSE = "RESPONSE"
+}
+
+export type Message = Entity<{
+  content: string;
+  createdAt: string;
+  type: MessageType;
+}>
