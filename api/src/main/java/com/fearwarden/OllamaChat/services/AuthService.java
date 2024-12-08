@@ -27,7 +27,6 @@ public class AuthService {
             throw new UserExistException();
         });
 
-        // TODO: handle this validation with annotation in dto
         if (!body.getPassword().equals(body.getConfirmationPassword())) {
             throw new PasswordMissMatch();
         }
